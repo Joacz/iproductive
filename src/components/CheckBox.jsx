@@ -1,16 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { CheckIcon } from '@heroicons/react/solid';
+import useTask from '../hooks/useTask';
 
-const CheckBox = ({ taskId }) => {
+const CheckBox = ({ task_id }) => {
   const [mark, setMark] = useState(false);
+  const task = useTask(task_id);
+
+  const check = async () => {
+    const formData = new FormData();
+
+    formData.append('id', task_id);
+    formData.append('checked', task.checked);
+    formData.append('name', task.name);
+    formData.append('user_id', task.user_id);
+
+    await fetch(`http://localhost:13000/api/tasks/`, {
+      method: 'POST',
+      body: formData,
+      mode: 'cors',
+    });
+    window.location.reload();
+  };
 
   const handleMark = () => {
-    setMark(!mark);
-    if (mark === false) {
-      console.log('checked: ' + taskId);
-    } else {
-      console.log('unchecked: ' + taskId);
-    }
+    check();
   };
 
   return (
@@ -19,7 +32,7 @@ const CheckBox = ({ taskId }) => {
       onClick={() => handleMark()}
     >
       <span className='text-center flex items-center'>
-        {mark ? <CheckIcon className='h-10 w-10 text-green-500' /> : ''}
+        {task.checked ? <CheckIcon className='h-10 w-10 text-green-500' /> : ''}
       </span>
     </div>
   );

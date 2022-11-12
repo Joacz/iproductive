@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 *{
+    @apply focus:outline-none;
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -12,6 +13,11 @@
 
 .App{
     background-image: url("./images/appbg.jpg");
+}
+
+.taskManagerBg{
+    background-image: none;
+    background-color: rgb(209, 222, 150);
 }
 
 .app-bg-cover{

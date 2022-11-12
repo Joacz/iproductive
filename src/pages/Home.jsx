@@ -23,6 +23,7 @@ const Home = () => {
       href: '/tasks',
     },
   ];
+
   return (
     <div>
       <Nav links={links} brand='IProductive' />
